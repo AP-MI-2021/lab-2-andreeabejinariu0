@@ -28,10 +28,26 @@ def get_age_in_days(birthdate):
     azi = dt.strptime(data2, '%d/%m/%Y')
     zile = birthdate - azi#diferenta de zile
     return (abs(zile.days))#diferenta in modul exprimata in zile
+def get_goldbach(n):
+    if n % 2 == 1:
+        return None
+    for p1 in range(1, n // 2, +2):
+        if prime(p1):
+            p2 = n - p1
+            if prime(p2):
+                return p1, p2
+                break
+def test_get_goldbach():
+    assert get_goldbach(18) == (5 , 13)
+    assert get_goldbach(14) == (3, 11)
+    assert get_goldbach(42) ==(5, 37)
+    assert get_goldbach(20) == (3, 17)
+    assert get_goldbach(45) == None
 def main():
     while True:
         print('1. Găsește ultimul număr prim mai mic decât un număr dat.')
         print('2. Varsta persoanei in zile')
+        print('3. Conjunctura lui Goldbach')
         print('x. Iesirea din program - exit')
         optiune = input('Alege optiunea: ')
         if optiune == '1':
@@ -43,9 +59,13 @@ def main():
         elif optiune == '2':
             data1 = str(input("Introduceti data nasterii: (dd/mm/yyyy)"))
             print('Numarul zilelor este de ',get_age_in_days(data1))
+        elif optiune == '3':
+            n = int(input('Dati un numar: '))
+            print(get_goldbach(n))
         elif optiune == 'x':
             break
         else:
             print('Optiune invalida!')
 test_get_largest_prime_below()
+test_get_goldbach()
 main()
